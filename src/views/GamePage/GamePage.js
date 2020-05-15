@@ -31,21 +31,28 @@ import Button from "@material-ui/core/Button";
 
 class GamePage extends Component {
   state = {
+    title: "Who is your favorite singer?",
     singerChosen: false,
     next: false,
     lyricsChosen: false,
     submit: false,
     btnText: "Next",
+    answerCorrect: false,
   };
   // let btnText = "Next";
   transitionHandler = () => {
     if (this.state.next == false) {
       this.setState({
+        title: "Guess which Lyrics is AI generated?",
         next: true,
         btnText: "submit",
       });
     } else if (this.state.next == true && this.state.submit == false) {
-      this.setState({ submit: true });
+      if (this.state.answerCorrect) {
+        this.setState({ title: "Correct!", submit: true });
+      } else {
+        this.setState({ title: "Wrong Choice!", submit: true });
+      }
     }
   };
   // const [cardAnimaton, setCardAnimation] = React.useState("cardHidden");
@@ -57,8 +64,9 @@ class GamePage extends Component {
   render() {
     // const classes = styles();
     return (
-      <div>
+      <div className={classes.GamePage}>
         <HeaderSearchBar />
+        <h2>{this.state.title}</h2>
 
         <button
           varient="contained"
